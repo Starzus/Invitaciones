@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Nuestra Boda</title>
+<style>body{background:#fdfcf9;color:#333;font-family:serif;display:flex;justify-content:center;padding:20px;margin:0} .card{max-width:400px;width:100%;background:#fff;border:1px solid #ddd;border-radius:8px;padding:25px;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,0.05)} h1{font-size:2rem;margin:5px 0;color:#9b783e} .btn{display:inline-block;padding:10px 20px;background:#9b783e;color:#fff;text-decoration:none;border-radius:4px;margin-top:10px;font-family:sans-serif;font-size:14px} #c{font-weight:bold;font-size:1.2rem;color:#9b783e;font-family:sans-serif}</style>
+</head><body>
+<div class="card">
+<small style="letter-spacing:2px;color:#888;">¡NOS CASAMOS!</small><br><br>
+<h1>José &amp; María</h1>
+<p style="font-style:italic;color:#666;font-size:0.95rem;">"El amor se compone de una sola alma que habita en dos cuerpos."</p><hr style="border:0;border-top:1px solid #eee;margin:15px 0;">
+<div style="font-size:12px;color:#777;letter-spacing:1px;">FALTAN:</div>
+<div id="c">00d 00h 00m 00s</div><hr style="border:0;border-top:1px solid #eee;margin:15px 0;">
+<b>⛪ Ceremonia:</b> 4:00 PM<br><small style="color:#666;">Parroquia San Pedro (Av. Principal 123)</small><br><a href="https://maps.google.com" target="_blank" style="color:#9b783e;font-size:13px;">[Ver Mapa]</a><br><br>
+<b>🥂 Recepción:</b> 6:30 PM<br><small style="color:#666;">Salón Las Rosas (Calle Flores 456)</small><br><a href="https://maps.google.com" target="_blank" style="color:#9b783e;font-size:13px;">[Ver Mapa]</a><br><br>
+<small style="color:#666;"><b>Código de vestimenta:</b> Formal</small><br><br>
+<a href="https://api.whatsapp.com/send?phone=51999999999&text=Confirmo%20mi%20asistencia" target="_blank" class="btn">Confirmar Asistencia (WhatsApp)</a>
+</div>
+<script>
+const f=new Date(2026,9,24,16,0).getTime();
+setInterval(()=>{const d=f-Date.now();if(d<0){document.getElementById('c').innerText='¡Llegó el día!';return;}
+const pad=n=>n<10?'0'+n:n,dys=Math.floor(d/864e5),hrs=Math.floor(d%864e5/36e5),min=Math.floor(d%36e5/6e4),sec=Math.floor(d%6e4/1e3);
+document.getElementById('c').innerText=`${pad(dys)}d ${pad(hrs)}h ${pad(min)}m ${pad(sec)}s`;},1000);
+</script></body></html>
