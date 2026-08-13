@@ -1,21 +1,546 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Nuestra Boda</title>
-<style>body{background:#fdfcf9;color:#333;font-family:serif;display:flex;justify-content:center;padding:20px;margin:0} .card{max-width:400px;width:100%;background:#fff;border:1px solid #ddd;border-radius:8px;padding:25px;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,0.05)} h1{font-size:2rem;margin:5px 0;color:#9b783e} .btn{display:inline-block;padding:10px 20px;background:#9b783e;color:#fff;text-decoration:none;border-radius:4px;margin-top:10px;font-family:sans-serif;font-size:14px} #c{font-weight:bold;font-size:1.2rem;color:#9b783e;font-family:sans-serif}</style>
-</head><body>
-<div class="card">
-<small style="letter-spacing:2px;color:#888;">¡NOS CASAMOS!</small><br><br>
-<h1>José &amp; María</h1>
-<p style="font-style:italic;color:#666;font-size:0.95rem;">"El amor se compone de una sola alma que habita en dos cuerpos."</p><hr style="border:0;border-top:1px solid #eee;margin:15px 0;">
-<div style="font-size:12px;color:#777;letter-spacing:1px;">FALTAN:</div>
-<div id="c">00d 00h 00m 00s</div><hr style="border:0;border-top:1px solid #eee;margin:15px 0;">
-<b>⛪ Ceremonia:</b> 4:00 PM<br><small style="color:#666;">Parroquia San Pedro (Av. Principal 123)</small><br><a href="https://maps.google.com" target="_blank" style="color:#9b783e;font-size:13px;">[Ver Mapa]</a><br><br>
-<b>🥂 Recepción:</b> 6:30 PM<br><small style="color:#666;">Salón Las Rosas (Calle Flores 456)</small><br><a href="https://maps.google.com" target="_blank" style="color:#9b783e;font-size:13px;">[Ver Mapa]</a><br><br>
-<small style="color:#666;"><b>Código de vestimenta:</b> Formal</small><br><br>
-<a href="https://api.whatsapp.com/send?phone=51999999999&text=Confirmo%20mi%20asistencia" target="_blank" class="btn">Confirmar Asistencia (WhatsApp)</a>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boda - Alexander &amp; Paola</title>
+  
+  <!-- Tipografía Romántica y Elegante -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-web: #f7f4ee;           /* Fondo exterior cremoso */
+      --dorado: #c59b27;          /* Dorado elegante */
+      --dorado-oscuro: #9e7a1b;   /* Gradiente de botón */
+      --texto: #2c2c2c;
+      --texto-suave: #555555;
+      --plomo: #888888;
+      --blanco: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg-web);
+      color: var(--texto);
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ESQUELA: +30% MÁS ANCHA (700px) EN ESCRITORIO Y 100% RESPONSIVE EN CELULARES */
+    .esquela {
+      max-width: 700px;
+      width: 100%;
+      margin: 0 auto;
+      background: var(--blanco);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding-bottom: 40px;
+    }
+
+    .seccion { padding: 35px 25px; border-bottom: 1px dashed #e5dfd3; }
+    
+    /* TIPOGRAFÍAS */
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: var(--dorado-oscuro);
+      margin: 15px 0;
+      line-height: 1.3;
+    }
+    
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      color: var(--dorado-oscuro);
+      margin-bottom: 15px;
+    }
+
+    .ampersand {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      color: var(--dorado);
+      display: block;
+      margin: 5px 0;
+    }
+
+    .oracion {
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--texto-suave);
+      max-width: 550px;
+      margin: 0 auto 20px auto;
+      line-height: 1.7;
+    }
+
+    /* CARRUSEL DE FOTOS */
+    .slider-box {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: #eae6dd;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      object-fit: cover;
+    }
+    .slide.active { opacity: 1; }
+
+    /* SELLO EN EL ENCABEZADO */
+    .sello-container {
+      margin: 25px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .sello-img {
+      width: 95px;
+      height: 95px;
+      border: 2px solid var(--dorado);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      color: var(--dorado-oscuro);
+      font-weight: bold;
+      background: #fdfbf7;
+      box-shadow: 0 4px 12px rgba(197, 155, 39, 0.2);
+    }
+
+    /* GRID DE PADRES E HIJOS */
+    .subtitulo-familia {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      font-weight: 600;
+      color: var(--dorado);
+      margin: 20px 0 10px 0;
+      text-transform: uppercase;
+    }
+
+    .grid-dos-columnas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      font-size: 0.88rem;
+      color: var(--texto-suave);
+      margin-bottom: 10px;
+    }
+
+    /* CONTADOR */
+    .contador-grid {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 15px;
+    }
+    .c-box {
+      background: #faf8f3;
+      border: 1px solid #ebd8b0;
+      padding: 12px;
+      border-radius: 8px;
+      min-width: 75px;
+    }
+    .c-num { font-size: 1.5rem; font-weight: bold; color: var(--dorado-oscuro); display: block; }
+    .c-lab { font-size: 0.65rem; text-transform: uppercase; color: #777; }
+    
+    .vencido .c-num { color: var(--plomo) !important; }
+    .vencido-texto { color: var(--plomo) !important; }
+
+    /* ITINERARIO CON ÍCONOS DORADOS */
+    .itinerario-lista {
+      max-width: 450px;
+      margin: 20px auto 0 auto;
+      text-align: left;
+    }
+    .itinerario-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f2ede4;
+    }
+    .itinerario-hora {
+      font-weight: 600;
+      color: var(--dorado-oscuro);
+      font-size: 0.9rem;
+      min-width: 75px;
+    }
+    .itinerario-nombre {
+      font-size: 0.92rem;
+      color: var(--texto);
+    }
+
+    /* ÍCONOS SVG DORADOS */
+    .icono-dorado {
+      width: 28px;
+      height: 28px;
+      fill: var(--dorado);
+      flex-shrink: 0;
+    }
+    .icono-decorativo {
+      width: 36px;
+      height: 36px;
+      fill: var(--dorado);
+      margin-bottom: 8px;
+    }
+
+    /* BOTONES DORADOS CON SOMBRA ELEGANTE */
+    .btn-dorado {
+      display: inline-block;
+      background: linear-gradient(135deg, #d4af37 0%, #a67c1e 100%);
+      color: var(--blanco);
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(166, 124, 30, 0.35);
+      border: 1px solid #e2c068;
+      margin-top: 15px;
+      transition: all 0.2s ease;
+    }
+    .btn-dorado:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(166, 124, 30, 0.5);
+    }
+
+    .btn-wsp {
+      background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35);
+      border: none;
+      padding: 16px 32px;
+      font-size: 0.9rem;
+    }
+
+    .banco-card {
+      background: #faf8f3;
+      border: 1px dashed var(--dorado);
+      padding: 18px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    /* AJUSTE RESPONSIVE EN CELULARES MEDIANOS Y PEQUEÑOS */
+    @media (max-width: 600px) {
+      .esquela { border-radius: 0; box-shadow: none; }
+      .seccion { padding: 25px 15px; }
+      h1 { font-size: 1.4rem; }
+      .grid-dos-columnas { grid-template-columns: 1fr; gap: 6px; }
+      .slider-box { height: 300px; }
+      .c-box { min-width: 60px; padding: 8px; }
+      .c-num { font-size: 1.2rem; }
+    }
+
+    /* BOTÓN FLOTANTE SUPERIOR DERECHO */
+    .btn-flotante {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #d4af37 0%, #a67c1e 100%);
+      color: #fff;
+      border: 2px solid #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+    .btn-flotante:active { transform: scale(0.9); }
+
+    /* ESTILO FECHA DESTACADA EN CONTADOR */
+    .fecha-destacada {
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dorado-oscuro);
+      margin: 12px 0 15px 0;
+      letter-spacing: 0.5px;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="esquela">
+
+  <!-- ==================== 1. SLIDER PRINCIPAL SUPERIOR ==================== -->
+  <div class="slider-box" id="slider1">
+    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800" class="slide active" alt="Foto 1">
+    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800" class="slide" alt="Foto 2">
+    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800" class="slide" alt="Foto 3">
+  </div>
+
+  <!-- ==================== 2. ENCABEZADO FORMAL COMPLETO ==================== -->
+  <div class="seccion">
+    
+    <h1>Alexander Cayo Macha</h1>
+    <span class="ampersand">&amp;</span>
+    <h1>Paola Silvestre Savero</h1>
+
+    <p class="oracion">
+      "Gracias Señor porque tú nos guardaste y permitiste que este amor que sentimos como hombre y mujer hoy lo podamos confirmar ante ti y ante todos nuestros seres queridos.<br><b>Gracias Señor.</b>"
+    </p>
+
+    <!-- SELLO DE LOS NOVIOS -->
+    <div class="sello-container">
+      <div class="sello-img">A &amp; P</div>
+    </div>
+
+    <!-- PADRES -->
+    <div class="subtitulo-familia">CON LA BENDICIÓN DE NUESTROS PADRES</div>
+    <div class="grid-dos-columnas">
+      <div>
+        <p><b>Juan Silvestre Cajahuaringa</b></p>
+        <p>Rosa Savero Saldias</p>
+      </div>
+      <div>
+        <p><b>Rosendo Cayo Flores</b></p>
+        <p>Iliana Macha Balvin</p>
+      </div>
+    </div>
+
+    <!-- HIJOS -->
+    <div class="subtitulo-familia" style="margin-top:25px;">EL AMOR DE NUESTROS HIJOS</div>
+    <div style="font-size: 0.9rem; color: var(--texto-suave);">
+      <p><b>Juan de Dios Cayo Silvestre</b></p>
+      <p><b>Alejandro Cayo Silvestre</b></p>
+    </div>
+
+  </div>
+
+  <!-- ==================== 3. CONTADOR REGRESIVO ==================== -->
+  <div class="seccion">
+    <!-- Ícono Aros de Boda Entrelazados Reales -->
+    <svg class="icono-decorativo" viewBox="0 0 24 24" style="width: 42px; height: 42px;">
+      <path d="M10,2A5,5 0 0,0 5,7A5,5 0 0,0 6.08,10.08C4.24,11.23 3,13.22 3,15.5A6.5,6.5 0 0,0 9.5,22A6.5,6.5 0 0,0 16,15.5C16,14.68 15.85,13.89 15.57,13.17C17.03,11.85 18,9.95 18,7.83A5.83,5.83 0 0,0 12.17,2H10M10,4H12.17A3.83,3.83 0 0,1 16,7.83C16,9.58 14.83,11.08 13.23,11.58C12.31,10.6 11,10 9.5,10C8.36,10 7.3,10.36 6.44,10.97C5.55,10.08 5,8.6 5,7A3,3 0 0,1 8,4H10M9.5,12A4.5,4.5 0 0,1 14,16.5A4.5,4.5 0 0,1 9.5,21A4.5,4.5 0 0,1 5,16.5A4.5,4.5 0 0,1 9.5,12Z"/>
+    </svg>
+
+    <div class="fecha-destacada">Sábado, 15 de Agosto de 2026 — 3:45 PM</div>
+
+    <small id="titulo-contador" style="letter-spacing: 2px; color: #777;">SOLO FALTAN:</small>
+    <div class="contador-grid" id="grid-contador">
+      <div class="c-box"><span class="c-num" id="dias">00</span><span class="c-lab">Días</span></div>
+      <div class="c-box"><span class="c-num" id="horas">00</span><span class="c-lab">Horas</span></div>
+      <div class="c-box"><span class="c-num" id="minutos">00</span><span class="c-lab">Min</span></div>
+      <div class="c-box"><span class="c-num" id="segundos">00</span><span class="c-lab">Seg</span></div>
+    </div>
+  </div>
+
+  <!-- ==================== 4. CEREMONIA RELIGIOSA ==================== -->
+  <div class="seccion">
+    <!-- Ícono Iglesia / Capilla Dorada -->
+    <svg class="icono-decorativo" viewBox="0 0 24 24"><path d="M11 2h2v3h3v2h-3v3h-2V7H8V5h3V2zm0 9h2v2h-2v-2zm-6 3h14v8H5v-8zm2 2v4h10v-4H7z"/></svg>
+    <h2>Ceremonia Religiosa</h2>
+    <p><b>Iglesia San José de Mayorazgo</b></p>
+    <p style="font-size: 0.9rem; color: var(--texto-suave);">Sábado, 15 de Agosto de 2026 — 3:45 PM</p>
+    <a href="https://maps.app.goo.gl/u6ksJK97k31Jeh278" target="_blank" class="btn-dorado">Ver Ubicación en Mapa</a>
+  </div>
+
+  <!-- ==================== 5. ITINERARIO ==================== -->
+  <div class="seccion">
+    <!-- Ícono Reloj / Cronograma Dorados -->
+    <svg class="icono-decorativo" viewBox="0 0 24 24"><path d="M12 20c4.41 0 8-3.59 8-8s-3.59-8-8-8-8 3.59-8 8 3.59 8 8 8zm0-18c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm.5 5h-1.5v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+    <h2>Itinerario</h2>
+
+    <div class="itinerario-lista">
+      
+      <div class="itinerario-item">
+        <svg class="icono-dorado" viewBox="0 0 24 24"><path d="M11 2h2v3h3v2h-3v3h-2V7H8V5h3V2zm0 9h2v2h-2v-2zm-6 3h14v8H5v-8zm2 2v4h10v-4H7z"/></svg>
+        <span class="itinerario-hora">4:00 PM</span>
+        <span class="itinerario-nombre">Ceremonia Religiosa</span>
+      </div>
+
+      <div class="itinerario-item">
+        <svg class="icono-dorado" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        <span class="itinerario-hora">5:10 PM</span>
+        <span class="itinerario-nombre">Recepción</span>
+      </div>
+
+      <div class="itinerario-item">
+        <!-- Ícono corregido de Salón / Recepción -->
+        <svg class="icono-dorado" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-2.09c-2.84-.48-5-2.95-5-5.91h2c0 2.21 1.79 4 4 4s4-1.79 4-4h2c0 2.96-2.16 5.43-5 5.91v2.09h4v2h-10v-2h4z"/>
+        </svg>
+        <span class="itinerario-hora">6:30 PM</span>
+        <span class="itinerario-nombre">Ceremonia Salón de Recepciones</span>
+      </div>
+
+      <div class="itinerario-item">
+        <svg class="icono-dorado" viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.46 3.9 3.45 4.35V22h2.1v-8.65C10.54 12.9 12 11.12 12 9V2h-1v7zm6-7c-2.21 0-4 1.79-4 4v7h2v9h2V2h-2z"/></svg>
+        <span class="itinerario-hora">8:00 PM</span>
+        <span class="itinerario-nombre">Cena</span>
+      </div>
+
+      <div class="itinerario-item">
+        <svg class="icono-dorado" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        <span class="itinerario-hora">10:00 PM</span>
+        <span class="itinerario-nombre">Hora Loca</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 6. RECEPCIÓN ==================== -->
+  <div class="seccion">
+    <!-- Ícono Copas / Brindis -->
+    <svg class="icono-decorativo" viewBox="0 0 24 24"><path d="M7.5 7L5.5 3H18.5L16.5 7M11 13V19H6V21H18V19H13V13C16.86 12.44 19.5 9 19.5 5V2H4.5V5C4.5 9 7.14 12.44 11 13Z"/></svg>
+    <h2>Recepción</h2>
+    <p><b>Local de Recepción</b></p>
+    <p style="font-size: 0.9rem; color: var(--texto-suave);">6:30 PM</p>
+    <a href="https://maps.app.goo.gl/WHJHC11UgcWrT9oS6" target="_blank" class="btn-dorado">Ver Ubicación en Mapa</a>
+  </div>
+
+  <!-- ==================== 7. SUGERENCIA DE REGALO ==================== -->
+  <div class="seccion">
+    <!-- Ícono Regalo / Cofre -->
+    <svg class="icono-decorativo" viewBox="0 0 24 24"><path d="M20 6h-3.17L18.4 3.2 16.8 2.4 14.5 6H9.5L7.2 2.4 5.6 3.2 7.17 6H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 14H4V10h16v10zm-9-8h2v6h-2v-6z"/></svg>
+    <h2>Sugerencia de Regalo</h2>
+    <p style="font-size: 0.92rem; color: #444; max-width: 500px; margin: 0 auto;">
+      Ya que vivimos juntos desde hace 17 años tenemos lo necesario, pero en este fondo bancario, cuyos datos dejamos adjuntos, un regalo voluntario servirá para nuestra luna de miel.<br><b>¡Mil gracias!</b>
+    </p>
+
+    <div class="banco-card">
+      <p><b>N° de cuenta BCP Soles:</b> 19139903738004</p>
+      <p><b>cuenta interbancaria:</b> 00219113990373800450</p>
+      <p style="font-size: 0.82rem; margin-top: 6px;"><b>A nombre de:</b> Paola Silvestre Savero</p>
+    </div>
+  </div>
+
+  <!-- ==================== 8. CONFIRMACIÓN RSVP (WHATSAPP) ==================== -->
+  <div class="seccion">
+    <p style="font-size: 0.88rem; font-weight: bold; color: var(--dorado-oscuro); margin-bottom: 12px; letter-spacing: 1px;">
+      TU PRESENCIA ES IMPORTANTE PARA NOSOTROS, POR FAVOR CONFIRMA TU PRESENCIA
+    </p>
+
+    <a href="https://api.whatsapp.com/send?phone=51963776037&text=Cuenta%20conmigo%20manito%20estaremos%20ahi%20si%20o%20si,%20apunta,%20nuestros%20nombres%20y%20apellidos%20completos%20que%20iremos%202%20personas%20somos:%0A-%20Mi%20nombre%20completo:%20%0A-%20Mi%20Unico%20acompa%C3%B1ante:%20%0A%C2%A1Confirmado%20estaremos%20ahi!!" target="_blank" class="btn-dorado btn-wsp">
+      Confirmar por WhatsApp
+    </a>
+  </div>
+
+  <!-- ==================== 9. SLIDER INFERIOR ==================== -->
+  <div class="slider-box" id="slider2" style="height: 350px;">
+    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800" class="slide active" alt="Foto 4">
+    <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800" class="slide" alt="Foto 5">
+    <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800" class="slide" alt="Foto 6">
+  </div>
+
+  <div style="margin-top: 35px;">
+    <h2>¡Te esperamos!</h2>
+  </div>
+
 </div>
+
+<!-- ==================== SCRIPTS ==================== -->
 <script>
-const f=new Date(2026,9,24,16,0).getTime();
-setInterval(()=>{const d=f-Date.now();if(d<0){document.getElementById('c').innerText='¡Llegó el día!';return;}
-const pad=n=>n<10?'0'+n:n,dys=Math.floor(d/864e5),hrs=Math.floor(d%864e5/36e5),min=Math.floor(d%36e5/6e4),sec=Math.floor(d%6e4/1e3);
-document.getElementById('c').innerText=`${pad(dys)}d ${pad(hrs)}h ${pad(min)}m ${pad(sec)}s`;},1000);
-</script></body></html>
+  // SLIDER FOTOS
+  function iniciarSlider(idContenedor, ms = 3500) {
+    const box = document.getElementById(idContenedor);
+    const fotos = box.getElementsByClassName('slide');
+    let idx = 0;
+    setInterval(() => {
+      fotos[idx].classList.remove('active');
+      idx = (idx + 1) % fotos.length;
+      fotos[idx].classList.add('active');
+    }, ms);
+  }
+
+  iniciarSlider('slider1', 3500);
+  iniciarSlider('slider2', 4000);
+
+  // CONTADOR REGRESIVO O VENCIDO
+  const fechaEvento = new Date(2026, 7, 15, 15, 45, 0).getTime(); // 15 de Agosto de 2026, 3:45 PM
+
+  function actualizarReloj() {
+    const ahora = new Date().getTime();
+    let diferencia = fechaEvento - ahora;
+
+    const grid = document.getElementById('grid-contador');
+    const titulo = document.getElementById('titulo-contador');
+
+    if (diferencia < 0) {
+      diferencia = Math.abs(diferencia);
+      grid.classList.add('vencido');
+      titulo.classList.add('vencido-texto');
+      titulo.innerText = "TIEMPO TRANSCURRIDO DESDE EL EVENTO:";
+    } else {
+      grid.classList.remove('vencido');
+      titulo.classList.remove('vencido-texto');
+      titulo.innerText = "SOLO FALTAN:";
+    }
+
+    const pad = n => n < 10 ? '0' + n : n;
+    document.getElementById('dias').innerText = pad(Math.floor(diferencia / (1000 * 60 * 60 * 24)));
+    document.getElementById('horas').innerText = pad(Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    document.getElementById('minutos').innerText = pad(Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60)));
+    document.getElementById('segundos').innerText = pad(Math.floor((diferencia % (1000 * 60)) / 1000));
+  }
+
+  actualizarReloj();
+  setInterval(actualizarReloj, 1000);
+
+</script>
+
+<!-- 1. REPRODUCTOR CON RUTA LOCAL A TU MP3 (ANTES DEL SCRIPT) -->
+  <audio id="musica-boda" loop preload="auto">
+    <source src="Edd_Sheeran_Perfect.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- 2. BOTÓN FLOTANTE EN LA ESQUINA SUPERIOR DERECHA -->
+  <button id="btn-musica" onclick="toggleMusica()" class="btn-flotante" title="Activar/Silenciar música">
+    <span id="icono-musica">🎵</span>
+  </button>
+
+  <!-- 3. SCRIPT AL FINAL DE TODO -->
+  <script>
+    // Control de música
+    const audio = document.getElementById('musica-boda');
+    const btnIcono = document.getElementById('icono-musica');
+
+    function toggleMusica() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          btnIcono.innerText = '🔊';
+        }).catch(err => {
+          console.log("El navegador requiere interacción previa.");
+        });
+      } else {
+        audio.pause();
+        btnIcono.innerText = '🔇';
+      }
+    }
+
+    // INTENTO DE AUTO-PLAY AL PRIMER CLIC EN CUALQUIER PARTE DE LA WEB
+    document.addEventListener('click', function iniciarAudio() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          btnIcono.innerText = '🔊';
+        }).catch(() => {});
+      }
+    }, { once: true });
+
+    // (Aquí va el resto de tu JavaScript del contador y carrusel)
+  </script>
+
+</body>
+</html>
